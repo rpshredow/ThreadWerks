@@ -1,7 +1,15 @@
+import "./App.css";
+import Card from "./components/Card";
+import products from "./products";
+
 function App() {
   return (
     <>
-      <h1>Welcome To InkedThreads</h1>
+      <div className="card_container">
+        {products.map((product) => (
+          <Card product={product} />
+        ))}
+      </div>
     </>
   );
 }

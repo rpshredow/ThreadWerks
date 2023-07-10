@@ -1,0 +1,9 @@
+.card_container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 4rem 12rem;
+}
+
+.card_container .item {
+  align-self: flex-start;
+}
