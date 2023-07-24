@@ -7,3 +7,13 @@
 .card_container .item {
   align-self: flex-start;
 }
+
+.react-router-link {
+  /* Your global styling here */
+  color: #000000;
+  text-decoration: none;
+}
+
+body.active_modal {
+  overflow-y: hidden;
+}

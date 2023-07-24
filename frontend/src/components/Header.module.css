@@ -10,6 +10,33 @@
   display: flex;
 }
 
+.navitem {
+  position: relative;
+  padding: 1rem;
+}
+
 .item {
   padding: 1rem;
+}
+
+.link {
+  color: black;
+  text-decoration: none;
+}
+
+.dropdownMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  border: 1px solid #000000;
+  width: 12rem;
+  background-color: #ffffff;
+}
+
+.list {
+  list-style-type: none;
+}
+
+.list_item {
+  padding: 0.5rem 0;
 }
