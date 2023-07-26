@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "threadwerks mern site",
   "main": "server.js",
+  "type": "module",
   "scripts": {
     "start": "node backend/server",
     "server": "nodemon backend/server",
@@ -12,7 +13,9 @@
   "author": "Robert Shredow",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongoose": "^7.4.1"
   },
   "devDependencies": {
     "concurrently": "^8.2.0",
