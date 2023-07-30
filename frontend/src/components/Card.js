@@ -10,8 +10,8 @@ const Card = ({ product }) => {
           <img
             alt="product"
             className={styles.img}
-            src={product.images[0]}
-          ></img>
+            src={product.images[0].url}
+          />
         </Link>
       </div>
       <div>

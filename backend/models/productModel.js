@@ -11,6 +11,13 @@ const reviewSchema = mongoose.Schema(
   }
 );
 
+const imageSchema = new mongoose.Schema({
+  url: {
+    type: String,
+    required: true,
+  },
+});
+
 const productSchema = mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
@@ -21,45 +28,17 @@ const productSchema = mongoose.Schema({
     type: String,
     required: true,
   },
-  image: {
-    type: String,
-    required: true,
-  },
-  brand: {
-    type: String,
-    required: true,
-  },
-  category: {
-    type: Boolean,
-    required: true,
-  },
   description: {
-    type: Boolean,
+    type: String,
     required: true,
   },
-  reviews: [reviewSchema],
-  rating: {
-    type: Number,
-    required: true,
-    default: 0,
-  },
-  numReviews: {
-    type: Number,
-    required: true,
-    default: 0,
-  },
+  images: [imageSchema],
   price: {
     type: Number,
     required: true,
-    default: 0,
-  },
-  countInStock: {
-    type: Number,
-    required: true,
-    default: 0,
   },
 });
 
-const Product = mongoose.model("Prduct", productSchema);
+const Product = mongoose.model("Product", productSchema);
 
 export default Product;

@@ -44,7 +44,7 @@ const Product = ({ match }) => {
             <img
               className={style.image}
               alt="product"
-              src={product.images ? product.images[activeImage] : ""}
+              src={product.images ? product.images[activeImage].url : ""}
             />
           </Link>
           <div className={style.container_images}>
@@ -53,7 +53,7 @@ const Product = ({ match }) => {
                 <img
                   className={style.thumb_image}
                   alt="small pic"
-                  src={image}
+                  src={image.url}
                 />
               </Link>
             ))}
@@ -71,7 +71,7 @@ const Product = ({ match }) => {
           <div className={style.modal_container}>
             <img
               alt="modal"
-              src={product.images ? product.images[activeImage] : ""}
+              src={product.images ? product.images[activeImage].url : ""}
             />
             <button className={style.close_modal} onClick={toggleModal}>
               CLOSE
