@@ -50,11 +50,14 @@ const Product = ({ match }) => {
           <div className={style.container_images}>
             {images.map((image, index) => (
               <Link key={index} onClick={() => setImageNumber(index)}>
-                <img
-                  className={style.thumb_image}
-                  alt="small pic"
-                  src={image.url}
-                />
+                <div className={style.thumb_image_container}>
+                  <img
+                    className={style.thumb_image}
+                    alt="small pic"
+                    src={image.url}
+                  />
+                  <div className={style.thumb_image_overlay}></div>
+                </div>
               </Link>
             ))}
           </div>

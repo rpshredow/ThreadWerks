@@ -7,11 +7,14 @@ const Card = ({ product }) => {
     <div className={styles.card_container}>
       <div className={styles.image_container}>
         <Link to={`/product/${product._id}`}>
-          <img
-            alt="product"
-            className={styles.img}
-            src={product.images[0].url}
-          />
+          <div className={styles.image_container}>
+            <img
+              alt="product"
+              className={styles.image}
+              src={product.images[0].url}
+            />
+            <div className={styles.overlay}></div>
+          </div>
         </Link>
       </div>
       <div>

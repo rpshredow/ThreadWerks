@@ -6,17 +6,32 @@
   border: 1px solid #000000;
 }
 
+.title {
+  padding: 0.5rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.title:hover {
+  background-color: #000000;
+  color: #ffffff;
+}
+
 .menu {
   display: flex;
 }
 
 .navitem {
   position: relative;
-  padding: 1rem;
 }
 
 .item {
   padding: 1rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.item:hover {
+  background-color: #000000;
+  color: #ffffff;
 }
 
 .link {
@@ -24,13 +39,25 @@
   text-decoration: none;
 }
 
+.category_title {
+  padding: 1rem;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.category_title:hover {
+  background-color: #000000;
+  color: #ffffff;
+}
+
 .dropdownMenu {
   position: absolute;
   top: 100%;
   left: 0;
   border: 1px solid #000000;
-  width: 12rem;
   background-color: #ffffff;
+  display: inline-block;
+  white-space: nowrap;
+  z-index: 1;
 }
 
 .list {
@@ -38,5 +65,22 @@
 }
 
 .list_item {
-  padding: 0.5rem 0;
+  padding: 1rem;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+li:hover {
+  background-color: #000000;
+  color: #ffffff;
 }

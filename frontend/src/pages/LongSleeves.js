@@ -2,14 +2,18 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Card from "../components/Card";
 
-const AllDesigns = () => {
+const LongSleeves = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
       const { data } = await axios.get("/api/products");
 
-      setProducts(data);
+      const filteredData = data.filter(
+        (data) => data.category === "long sleeve shirt"
+      );
+
+      setProducts(filteredData);
     };
 
     fetchProducts();
@@ -24,4 +28,4 @@ const AllDesigns = () => {
   );
 };
 
-export default AllDesigns;
+export default LongSleeves;

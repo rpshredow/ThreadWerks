@@ -6,6 +6,8 @@ const products = [
       { url: "https://m.media-amazon.com/images/I/51Gblk-orBL._AC_UX679_.jpg" },
     ],
     price: "14.99",
+    qtyBought: "22",
+    category: "tank top",
   },
   {
     name: "Grey EWU T-Shirt",
@@ -16,15 +18,19 @@ const products = [
       { url: "https://m.media-amazon.com/images/I/71sLwD2SpGL._AC_UX679_.jpg" },
     ],
     price: "19.99",
+    qtyBought: "11",
+    category: "tshirt",
   },
   {
     name: "Charcoal Grey EWU Long Sleeve Shirt",
     description:
-      "Charcoal grey long sleeve shirt with large black and white EwU logo in front",
+      "Charcoal grey long sleeve shirt with large black and white EWU logo in front",
     images: [
       { url: "https://m.media-amazon.com/images/I/51FDETA-JOL._AC_UX679_.jpg" },
     ],
     price: "24.99",
+    qtyBought: "13",
+    category: "long sleeve shirt",
   },
   {
     name: "Black EWU Hoodie",
@@ -35,6 +41,8 @@ const products = [
       { url: "https://m.media-amazon.com/images/I/61wc3TFHxNL._AC_UX679_.jpg" },
     ],
     price: "29.99",
+    qtyBought: "15",
+    category: "hoodie",
   },
   {
     name: "Red EWU Sweat Shirt",
@@ -44,6 +52,8 @@ const products = [
       { url: "https://m.media-amazon.com/images/I/61s5J5zFJpS._AC_UX679_.jpg" },
     ],
     price: "34.99",
+    qtyBought: "30",
+    category: "sweat shirt",
   },
   {
     name: "White EWU Pullover Hoodie",
@@ -53,6 +63,8 @@ const products = [
       { url: "https://m.media-amazon.com/images/I/61dgPe7kzYL._AC_UX679_.jpg" },
     ],
     price: "39.99",
+    qtyBought: "9",
+    category: "hoodie",
   },
 ];
 

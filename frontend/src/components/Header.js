@@ -52,12 +52,12 @@ const Header = () => {
   return (
     <div className={header.container}>
       <Link className={header.link} to={"/"}>
-        <h2>ThreadWerks</h2>
+        <h2 className={header.title}>ThreadWerks</h2>
       </Link>
       <div className={header.menu}>
         <div ref={browseMenuRef} className={header.navitem}>
           <Link href="#" className={header.link} onClick={toggleBrowseMenu}>
-            Browse
+            <div className={header.category_title}>Browse</div>
           </Link>
           {openBrowse && (
             <div className={header.dropdownMenu}>
@@ -65,7 +65,9 @@ const Header = () => {
                 <Link className={header.link} to={"/all"}>
                   <li className={header.list_item}>All Designs</li>
                 </Link>
-                <li className={header.list_item}>Most Popular</li>
+                <Link className={header.link} to={"/popular"}>
+                  <li className={header.list_item}>Most Popular</li>
+                </Link>
               </ul>
             </div>
           )}
@@ -73,14 +75,23 @@ const Header = () => {
 
         <div ref={adultMenuRef} className={header.navitem}>
           <Link href="#" className={header.link} onClick={toggleAdultMenu}>
-            Adult Apparel
+            <div className={header.category_title}>Adult Apparel</div>
           </Link>
           {openAdult && (
             <div className={header.dropdownMenu}>
               <ul className={header.list}>
-                <li className={header.list_item}>T-Shirts</li>
-                <li className={header.list_item}>Tank Tops</li>
-                <li className={header.list_item}>Hoodies</li>
+                <Link className={header.link} to={"/tshirts"}>
+                  <li className={header.list_item}>T-Shirts</li>
+                </Link>
+                <Link className={header.link} to={"/tanktops"}>
+                  <li className={header.list_item}>Tank Tops</li>
+                </Link>
+                <Link className={header.link} to={"/hoodies"}>
+                  <li className={header.list_item}>Hoodies</li>
+                </Link>
+                <Link className={header.link} to={"/longsleeves"}>
+                  <li className={header.list_item}>Long Sleeve Shirts</li>
+                </Link>
               </ul>
             </div>
           )}
@@ -88,7 +99,7 @@ const Header = () => {
 
         <div ref={kidMenuRef} className={header.navitem}>
           <Link href="#" className={header.link} onClick={toggleKidMenu}>
-            Kids Apparel
+            <div className={header.category_title}>Kids Apparel</div>
           </Link>
           {openKid && (
             <div className={header.dropdownMenu}>

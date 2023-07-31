@@ -37,6 +37,13 @@ const productSchema = mongoose.Schema({
     type: Number,
     required: true,
   },
+  qtyBought: {
+    type: Number,
+  },
+  category: {
+    type: String,
+    required: true,
+  },
 });
 
 const Product = mongoose.model("Product", productSchema);

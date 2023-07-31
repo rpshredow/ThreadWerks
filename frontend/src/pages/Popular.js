@@ -9,7 +9,9 @@ const AllDesigns = () => {
     const fetchProducts = async () => {
       const { data } = await axios.get("/api/products");
 
-      setProducts(data);
+      const sortedData = data.sort((a, b) => b.qtyBought - a.qtyBought);
+
+      setProducts(sortedData);
     };
 
     fetchProducts();

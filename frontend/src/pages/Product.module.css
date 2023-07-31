@@ -8,14 +8,35 @@
 .image {
   max-height: 32rem;
   padding: 2rem;
+  margin: 0 1rem;
   border: 1px solid #000000;
 }
 
+.thumb_image_container {
+  position: relative;
+  display: inline-block;
+}
+
 .thumb_image {
+  display: block;
   max-width: 4rem;
-  margin: 0 1rem;
   padding: 1rem;
   border: 1px solid #000000;
+}
+
+.thumb_image_overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.thumb_image_container:hover .thumb_image_overlay {
+  opacity: 1;
 }
 
 .container_images {
