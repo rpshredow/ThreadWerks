@@ -20,17 +20,17 @@ function App() {
     <Router>
       <Header />
       <Routes>
-        <Route path="/" element={<Home />} exact />
         <Route path="/product/:id" element={<Product />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/cart" element={<Cart />} />
+        <Route path="/cart/:id?" element={<Cart />} />
         <Route path="/all" element={<AllDesigns />} />
         <Route path="/popular" element={<Popular />} />
         <Route path="/tshirts" element={<TShirts />} />
         <Route path="/tanktops" element={<TankTops />} />
         <Route path="/hoodies" element={<Hoodies />} />
         <Route path="/longsleeves" element={<LongSleeves />} />
+        <Route path="/" element={<Home />} exact />
       </Routes>
       <Footer />
     </Router>

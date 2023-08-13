@@ -1,8 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styles from "./Card.module.css";
+import Loader from "./Loader";
 
-const Card = ({ product }) => {
+const Card = ({ loading, product }) => {
   return (
     <div className={styles.card_container}>
       <div className={styles.image_container}>

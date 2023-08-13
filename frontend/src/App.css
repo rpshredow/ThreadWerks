@@ -16,3 +16,7 @@
 body.active_modal {
   overflow-y: hidden;
 }
+
+.highlight-button {
+  border: 3px solid black;
+}

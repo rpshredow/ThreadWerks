@@ -1,12 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import style from "./Product.module.css";
-import axios from "axios";
+import { listProductDetails } from "../actions/productActions";
+import Loader from "../components/Loader";
 
-const Product = ({ match }) => {
+const Product = () => {
+  const [selectedQty, setSelectedQty] = useState(0);
   const [activeImage, setActiveImage] = useState(0);
   const [modal, setModal] = useState(false);
-  const [product, setProduct] = useState({});
+  const [selectedSize, setSelectedSize] = useState("Not Selected");
+  const [selectedColor, setSelectedColor] = useState("Not Selected");
+  const [sizes, setSizes] = useState("");
+  const [maxQty, setMaxQty] = useState(0);
+
+  const { id } = useParams();
+  const navigate = useNavigate();
 
   const toggleModal = () => {
     setModal(!modal);
@@ -18,56 +27,165 @@ const Product = ({ match }) => {
     document.body.classList.remove("active_modal");
   }
 
-  const { id } = useParams();
+  const dispatch = useDispatch();
 
-  const fetchProduct = async (id) => {
-    const { data } = await axios.get(`/api/products/${id}`);
-    setProduct(data);
-  };
+  const productDetails = useSelector((state) => state.productDetails);
+  const { loading, error, product } = productDetails;
 
   useEffect(() => {
-    fetchProduct(id);
-  }, [id]);
+    dispatch(listProductDetails(id));
+    getSizeColorQuantity(selectedSize, selectedColor);
+  }, [dispatch, id, selectedSize, selectedColor]);
+
+  const addToCartHandler = () => {
+    navigate(
+      `/cart/${id}?qty=${selectedQty}&color=${selectedColor}&size=${selectedSize}`
+    );
+  };
+
+  const incrementQuantity = () => {
+    if (selectedQty < maxQty) {
+      setSelectedQty(selectedQty + 1);
+    }
+  };
+
+  const decrementQuantity = () => {
+    if (selectedQty > 0) {
+      setSelectedQty(selectedQty - 1);
+    }
+  };
+
+  const setOptions = (color) => {
+    setSelectedColor(color);
+    setSelectedSize("");
+    setSelectedQty(0);
+    const size = product.options
+      .filter((option) => option.color === color)
+      .map((option) => option.size);
+
+    setSizes(size);
+  };
+
+  const getSizeColorQuantity = (size, color) => {
+    const selectedOption = product.options?.find(
+      (option) => option.size === size && option.color === color
+    );
+
+    if (selectedOption) {
+      setMaxQty(selectedOption.quantity);
+    }
+  };
+
+  const uniqueSizes = [
+    ...new Set(product.options?.map((option) => option?.size)),
+  ];
+
+  const uniqueColors = [
+    ...new Set(product.options?.map((option) => option?.color)),
+  ];
 
   const setImageNumber = (num) => {
     setActiveImage(num);
   };
 
-  // Add a conditional check for product.images
-  const images = product.images || [];
-
   return (
     <>
-      <div className={style.container}>
-        <div className={style.images}>
-          <Link onClick={toggleModal}>
-            <img
-              className={style.image}
-              alt="product"
-              src={product.images ? product.images[activeImage].url : ""}
-            />
-          </Link>
-          <div className={style.container_images}>
-            {images.map((image, index) => (
-              <Link key={index} onClick={() => setImageNumber(index)}>
-                <div className={style.thumb_image_container}>
-                  <img
-                    className={style.thumb_image}
-                    alt="small pic"
-                    src={image.url}
-                  />
-                  <div className={style.thumb_image_overlay}></div>
-                </div>
-              </Link>
-            ))}
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <h3>{error}</h3>
+      ) : (
+        <div className={style.container}>
+          <div className={style.images}>
+            <Link onClick={toggleModal}>
+              <img
+                className={style.image}
+                alt="product"
+                src={product.images[activeImage]?.url || ""}
+              />
+            </Link>
+            <div className={style.container_images}>
+              {product.images.map((image, index) => (
+                <Link key={index} onClick={() => setImageNumber(index)}>
+                  <div className={style.thumb_image_container}>
+                    <img
+                      className={style.thumb_image}
+                      alt="small pic"
+                      src={image.url}
+                    />
+                    <div className={style.thumb_image_overlay}></div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+          <div className={style.info}>
+            <h3>{product.name}</h3>
+            <p>{product.description}</p>
+            <p>${product.price}</p>
+            <div className={style.colors_container}>
+              <p>Colors: </p>
+
+              {uniqueColors.map((color, index) => (
+                <button
+                  className={selectedColor === color ? "highlight-button" : ""}
+                  onClick={() => setOptions(color)}
+                  key={index}
+                >
+                  {color}
+                </button>
+              ))}
+            </div>
+            <div className={style.sizes_container}>
+              <p>Sizes: </p>
+              {sizes.length === 0
+                ? uniqueSizes.map((size, index) => (
+                    <button onClick={() => setSelectedSize(size)} key={index}>
+                      {size}
+                    </button>
+                  ))
+                : sizes.map((size, index) => (
+                    <button
+                      className={
+                        selectedSize === size ? "highlight-button" : ""
+                      }
+                      onClick={() => setSelectedSize(size)}
+                      key={index}
+                    >
+                      {size}
+                    </button>
+                  ))}
+            </div>
+
+            <div className={style.status}>
+              <p>Color: {selectedColor}</p>
+              <p>Size: {selectedSize}</p>
+              <p>In Stock: {maxQty > 10 ? "More then 10" : maxQty}</p>
+            </div>
+
+            <div className={style.quantity_container}>
+              <button disabled={selectedQty === 0} onClick={decrementQuantity}>
+                -
+              </button>
+              <p>Qty: {selectedQty}</p>
+              <button
+                disabled={selectedQty === maxQty}
+                onClick={incrementQuantity}
+              >
+                +
+              </button>
+            </div>
+
+            <button
+              disabled={maxQty === 0 || selectedQty == 0}
+              className={style.add_to_cart}
+              onClick={addToCartHandler}
+            >
+              Add To Cart
+            </button>
           </div>
         </div>
-        <div className={style.info}>
-          <h3>{product.name}</h3>
-          <p>{product.description}</p>
-          <p>${product.price}</p>
-        </div>
-      </div>
+      )}
       {modal && (
         <div className={style.modal}>
           <div onClick={toggleModal} className={style.overlay} />
@@ -77,7 +195,7 @@ const Product = ({ match }) => {
               src={product.images ? product.images[activeImage].url : ""}
             />
             <button className={style.close_modal} onClick={toggleModal}>
-              CLOSE
+              <b>X</b>
             </button>
           </div>
         </div>

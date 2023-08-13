@@ -11,6 +11,21 @@ const reviewSchema = mongoose.Schema(
   }
 );
 
+const optionsSchema = new mongoose.Schema({
+  size: {
+    type: String,
+    required: true,
+  },
+  color: {
+    type: String,
+    required: true,
+  },
+  quantity: {
+    type: Number,
+    required: true,
+  },
+});
+
 const imageSchema = new mongoose.Schema({
   url: {
     type: String,
@@ -33,6 +48,7 @@ const productSchema = mongoose.Schema({
     required: true,
   },
   images: [imageSchema],
+  options: [optionsSchema],
   price: {
     type: Number,
     required: true,
@@ -42,6 +58,10 @@ const productSchema = mongoose.Schema({
   },
   category: {
     type: String,
+    required: true,
+  },
+  countInStock: {
+    type: Number,
     required: true,
   },
 });

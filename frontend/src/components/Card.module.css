@@ -1,5 +1,6 @@
 .card_container {
-  max-width: 16rem;
+  /* max-width: 16rem; */
+  width: 16rem;
   margin: 0 2rem;
 }
 
