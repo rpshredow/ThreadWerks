@@ -1,9 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
-import connectDB from "./config/db.js";
-
 import productRoutes from "./routes/productRoutes.js";
+import connectDB from "./config/db.js";
 
 dotenv.config();
 
