@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import "../App.css";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import header from "./Header.module.css";
 
@@ -10,6 +11,8 @@ const Header = () => {
   const browseMenuRef = useRef();
   const adultMenuRef = useRef();
   const kidMenuRef = useRef();
+
+  const { cartItems } = useSelector((state) => state.cart);
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -120,7 +123,13 @@ const Header = () => {
           <div className={header.item}>Sign Up</div>
         </Link>
         <Link className={header.link} to={"/cart"}>
-          <div className={header.item}>Cart</div>
+          <div className={header.item}>
+            Cart (
+            {cartItems.length > 0
+              ? cartItems.reduce((a, c) => a + c.qty, 0)
+              : "0"}
+            )
+          </div>
         </Link>
       </div>
     </div>

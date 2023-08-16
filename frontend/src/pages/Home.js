@@ -14,7 +14,7 @@ const Home = () => {
       ) : (
         <div className="card_container">
           {products?.map((product) => (
-            <Card product={product} />
+            <Card key={product._id} product={product} />
           ))}
         </div>
       )}
