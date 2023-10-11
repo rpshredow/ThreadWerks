@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 10rem;
+  margin: 2rem 0;
+}
+
+.thumbnail_image {
+  width: 6rem;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 1rem;
+}
+
+.name_price {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 0 2rem;
+}

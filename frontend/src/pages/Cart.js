@@ -33,15 +33,19 @@ const Cart = () => {
           <div className={style.items}>
             {cartItems.map((item) => (
               <div className={style.item} key={item._id}>
-                <img
-                  className={style.image_thumb}
-                  src={item.images[0].url}
-                  alt={item.name}
-                  fluid
-                  rounded
-                />
+                <div className={style.image_container}>
+                  <img
+                    className={style.image_thumb}
+                    src={item.images[0].url}
+                    alt={item.name}
+                    fluid
+                    rounded
+                  />
+                </div>
                 <div className={style.link}>
-                  <Link to={`/product/${item._id}`}>{item.name}</Link>
+                  <Link to={`/product/${item._id}`}>
+                    <h3>{item.name}</h3>
+                  </Link>
                 </div>
                 <p>Qty: {item.qty}</p>
                 <p>Price: ${item.price}</p>
@@ -58,8 +62,6 @@ const Cart = () => {
         <h2>
           Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)}) items
         </h2>
-        <p>Tax:</p>
-        <p>Shipping:</p>
         <p>
           Total:{" "}
           {cartItems

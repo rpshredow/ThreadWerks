@@ -1,7 +1,16 @@
 .container {
   display: flex;
+  /* align-items: center; */
+  justify-content: center;
+}
+
+.image_container {
+  display: flex;
   align-items: center;
   justify-content: center;
+  width: 8rem;
+  height: 8rem;
+  border: 1px solid #000000;
 }
 
 .image_thumb {
@@ -19,12 +28,12 @@
 .prices_container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  margin: 2rem;
   /* align-items: center; */
 }
 
 .link {
-  width: 16rem;
+  width: 12rem;
 }
 
 .items {

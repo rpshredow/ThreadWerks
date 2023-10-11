@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import "../App.css";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import header from "./Header.module.css";
+import { useLogoutMutation } from "../slices/usersApiSlice";
+import { logout } from "../slices/authSlice";
 
 const Header = () => {
   const [openBrowse, setOpenBrowse] = useState(false);
@@ -13,6 +15,22 @@ const Header = () => {
   const kidMenuRef = useRef();
 
   const { cartItems } = useSelector((state) => state.cart);
+  const { userInfo } = useSelector((state) => state.auth);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [logoutApiCall] = useLogoutMutation();
+
+  const logoutHandler = async () => {
+    try {
+      await logoutApiCall().unwrap();
+      dispatch(logout());
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     const handleOutsideClick = (event) => {
@@ -116,12 +134,21 @@ const Header = () => {
         </div>
       </div>
       <div className={header.menu}>
-        <Link className={header.link} to={"/login"}>
-          <div className={header.item}>Login</div>
-        </Link>
-        <Link className={header.link} to={"/signup"}>
-          <div className={header.item}>Sign Up</div>
-        </Link>
+        {userInfo ? (
+          <Link className={header.link} to={"/profile"}>
+            <div className={header.item}>{userInfo.name}</div>
+          </Link>
+        ) : (
+          <div className="inline-links">
+            <Link className={header.link} to={"/login"}>
+              <div className={header.item}>Login</div>
+            </Link>
+            <Link className={header.link} to={"/register"}>
+              <div className={header.item}>Sign Up</div>
+            </Link>
+          </div>
+        )}
+
         <Link className={header.link} to={"/cart"}>
           <div className={header.item}>
             Cart (
@@ -131,6 +158,28 @@ const Header = () => {
             )
           </div>
         </Link>
+
+        {userInfo && userInfo.isAdmin && (
+          <div className="inline-links">
+            <Link className={header.link} to={"/admin/productlist"}>
+              <div className={header.item}>Products</div>
+            </Link>
+            <Link className={header.link} to={"/admin/userlist"}>
+              <div className={header.item}>Users</div>
+            </Link>
+            <Link className={header.link} to={"/admin/orderlist"}>
+              <div className={header.item}>Orders</div>
+            </Link>
+          </div>
+        )}
+
+        {userInfo ? (
+          <Link className={header.link} onClick={logoutHandler}>
+            <div className={header.item}>Logout</div>
+          </Link>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );

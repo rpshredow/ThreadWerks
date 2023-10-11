@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useLoginMutation } from "../slices/usersApiSlice";
+import { useRegisterMutation } from "../slices/usersApiSlice";
 import { setCredentials } from "../slices/authSlice";
 import { toast } from "react-toastify";
 
-const Login = () => {
+const Register = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [login, { isLoading }] = useLoginMutation();
+  const [register, { isLoading }] = useRegisterMutation();
 
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -28,19 +30,32 @@ const Login = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    try {
-      const res = await login({ email, password }).unwrap();
-      dispatch(setCredentials({ ...res }));
-      navigate(redirect);
-    } catch (err) {
-      toast.error(err?.data?.message || err.error);
+    if (password !== confirmPassword) {
+      toast.error("Passwords do not match");
+    } else {
+      try {
+        const res = await register({ name, email, password }).unwrap();
+        dispatch(setCredentials({ ...res }));
+        navigate(redirect);
+      } catch (err) {
+        toast.error(err?.data?.message || err.error);
+      }
     }
   };
 
   return (
     <div>
-      <h2>Login</h2>
+      <h2>Sign Up</h2>
       <form onSubmit={submitHandler}>
+        <div>
+          <label htmlFor="name">Name:</label>
+          <input
+            type="text"
+            placeholder="Enter name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </div>
         <div>
           <label htmlFor="email">Email:</label>
           <input
@@ -59,14 +74,23 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="submit">Sign In</button>
-        <p>New Customer?</p>
-        <Link to={redirect ? `/register?redirect=${redirect}` : "/register"}>
-          Register
+        <div>
+          <label htmlFor="confirmPassword">Confirm Password:</label>
+          <input
+            type="password"
+            placeholder="Confirm Password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+        </div>
+        <button type="submit">Register</button>
+        <p>Existing Customer?</p>
+        <Link to={redirect ? `/login?redirect=${redirect}` : "/login"}>
+          Login
         </Link>
       </form>
     </div>
   );
 };
 
-export default Login;
+export default Register;
